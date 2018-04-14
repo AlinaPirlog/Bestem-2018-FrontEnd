@@ -15,6 +15,7 @@ import { Interceptor } from "./core/inteceptor";
 import { TokenStorage } from "./core/token.storage";
 import { AuthGuard } from './core/auth.guard';
 import { RegisterComponent } from './register/register.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,10 @@ import { RegisterComponent } from './register/register.component';
     BrowserAnimationsModule,
     CustomMaterialModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDzN_Vcq5K0xRcV6Ln-lYiuKu1rer_vYFc'
+    })
   ],
   entryComponents: [ErrorDialogComponent],
   providers: [
