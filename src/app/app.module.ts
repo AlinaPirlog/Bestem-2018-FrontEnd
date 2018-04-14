@@ -14,13 +14,15 @@ import {AuthService} from "./core/auth.service";
 import {Interceptor} from "./core/inteceptor";
 import {TokenStorage} from "./core/token.storage";
 import { AuthGuard } from './core/auth.guard';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     LoginComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
