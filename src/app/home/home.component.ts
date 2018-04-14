@@ -36,10 +36,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //set google maps defaults
-      this.zoom = 4;
-      this.latitude = 39.8282;
-      this.longitude = -98.5795;
+
 
      //create search FormControl
       this.searchControl = new FormControl();
@@ -82,11 +79,7 @@ export class HomeComponent implements OnInit {
          this.latitude = position.coords.latitude;
          this.longitude = position.coords.longitude;
          this.zoom = 12;
-         this.markersHolder.push({
-             lat: position.coords.latitude,
-    		     lng: position.coords.longitude,
-    		     label: 'A',
-    		     draggable: true})
+    
        });
      }
   }
@@ -118,7 +111,7 @@ export class HomeComponent implements OnInit {
     console.log('dragEnd', m, $event);
   }
 
-  open(content) { 
+  open(content) {
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
