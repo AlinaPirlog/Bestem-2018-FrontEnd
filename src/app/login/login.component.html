@@ -1,3 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <span class="example-fill-remaining-space"></span>
+    <span class="example-spacer"></span>
+
+    <button mat-button>About</button>
+    <button mat-button>Contact</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
@@ -8,19 +19,21 @@
         <tr>
           <td>
             <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+              <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
             </mat-form-field>
           </td>
         </tr>
         <tr>
-        <td><mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" [(ngModel)]="password"type="password" name="password" required>
-        </mat-form-field></td>
-      </tr></table>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+          </mat-form-field></td>
+        </tr></table>
     </form>
-    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button (click)="login()" color="primary">Login</button>
+  </mat-card-actions>
+  <mat-card-actions>
+    <button mat-raised-button (click)="login()" color="primary">REGISTER</button>
   </mat-card-actions>
 </mat-card>
