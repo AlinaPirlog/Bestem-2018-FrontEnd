@@ -9,6 +9,16 @@
 
   </mat-toolbar-row>
 </mat-toolbar>
+<div class="col">
+   <div ngbDropdown class="d-inline-block">
+     <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Itineraries</button>
+     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+       <button class="dropdown-item">First</button>
+       <button class="dropdown-item">Second</button>
+       <button class="dropdown-item">Add New</button>
+     </div>
+   </div>
+ </div>
 <div class="row">
   <div class="col-5" style="margin:20px">
     <calendar-component></calendar-component>
@@ -17,15 +27,15 @@
       <div class="form-group">
           <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
       </div>
-    <agm-map 
+    <agm-map
     [latitude]="latitude"
     [longitude]="longitude"
     [zoom]="zoom"
     [disableDefaultUI]="false"
     [zoomControl]="false"
     (mapClick)="mapClicked($event)">
-    
-    <agm-marker 
+
+    <agm-marker
         *ngFor="let m of markersHolder; let i = index"
         (markerClick)="clickedMarker(m.label, i)"
         [latitude]="m.lat"
@@ -33,16 +43,16 @@
         [label]="m.label"
         [markerDraggable]="m.draggable"
         (dragEnd)="markerDragEnd(m, $event)">
-        
+
       <agm-info-window>
         <button (click)="$event.preventDefault();removeMarker(i)">Remove marker</button>
         <strong>InfoWindow content</strong>
         <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add</button>
       </agm-info-window>
-      
+
     </agm-marker>
-    
-    
+
+
     </agm-map>
   </div>
 </div>
