@@ -4,6 +4,7 @@ import {UserService} from '../app.service';
 import {Router} from '@angular/router';
 import {TokenStorage} from '../core/token.storage';
 import { MouseEvent } from '@agm/core';
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -11,20 +12,21 @@ import { MouseEvent } from '@agm/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    // google maps zoom level
-    zoom: number = 8;
-  
-    // initial center position for the map
-    lat: number = 51.673858;
-    lng: number = 7.815982;
+  // google maps zoom level
+  zoom: number = 8;
+
+  // initial center position for the map
+  lat: number = 51.673858;
+  lng: number = 7.815982;
+  closeResult: string;
   
 
   constructor(private router: Router,
               private userService: UserService,
-              private tokenStorage:TokenStorage ) {
+              private tokenStorage:TokenStorage,
+              private modalService: NgbModal) {
   }
   ngOnInit(): void {
-
 
   }
 
@@ -75,6 +77,25 @@ export class HomeComponent implements OnInit {
 		  draggable: true
 	  }
   ]
+
+
+  open(content) { 
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 }
 interface marker {
 	lat: number;

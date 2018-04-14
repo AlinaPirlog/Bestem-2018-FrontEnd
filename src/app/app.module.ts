@@ -16,7 +16,7 @@ import { TokenStorage } from "./core/token.storage";
 import { AuthGuard } from './core/auth.guard';
 import { RegisterComponent } from './register/register.component';
 import { AgmCoreModule } from '@agm/core';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,8 @@ import { AgmCoreModule } from '@agm/core';
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDzN_Vcq5K0xRcV6Ln-lYiuKu1rer_vYFc'
-    })
+    }),
+    NgbModule.forRoot()
   ],
   entryComponents: [ErrorDialogComponent],
   providers: [

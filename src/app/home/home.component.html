@@ -9,7 +9,7 @@
 
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="example-container mat-elevation-z8">
+<div class="">
 
   <agm-map 
   [latitude]="lat"
@@ -29,9 +29,9 @@
       (dragEnd)="markerDragEnd(m, $event)">
       
     <agm-info-window>
-      <button>Add</button>
       <button (click)="$event.preventDefault();removeMarker(i)">Remove marker</button>
       <strong>InfoWindow content</strong>
+      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add</button>
     </agm-info-window>
     
   </agm-marker>
@@ -39,6 +39,18 @@
   
   </agm-map>
 </div>
-<div class="example-container mat-elevation-z8">
-  
-</div>
+
+<ng-template #content>
+    <div class="modal-header">
+      <h4 class="modal-title">Modal title</h4>
+      <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="close('Close click')">Close</button>
+    </div>
+</ng-template>
