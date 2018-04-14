@@ -7,7 +7,6 @@ import {TokenStorage} from '../core/token.storage';
 export class AuthGuard implements CanActivate {
 
     constructor(private router: Router, private token: TokenStorage) { 
-        console.log('im here');
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

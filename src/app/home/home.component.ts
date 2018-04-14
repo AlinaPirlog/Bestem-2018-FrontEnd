@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
-import {User} from './user.model';
 import {UserService} from '../app.service';
 import {Router} from '@angular/router';
 import {TokenStorage} from '../core/token.storage';
 @Component({
   selector: 'app-root',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class UserComponent implements OnInit {
+export class HomeComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService, private tokenStorage:TokenStorage ) {
   }
