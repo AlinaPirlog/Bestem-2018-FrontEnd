@@ -11,7 +11,10 @@ import {TokenStorage} from '../core/token.storage';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, public dialog: MatDialog, private authService: AuthService, private token: TokenStorage) {
+  constructor(private router: Router, 
+              public dialog: MatDialog, 
+              private authService: AuthService, 
+              private token: TokenStorage) {
   }
 
   username: string;

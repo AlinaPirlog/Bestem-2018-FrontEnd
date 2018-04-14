@@ -13,6 +13,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./core/auth.service";
 import {Interceptor} from "./core/inteceptor";
 import {TokenStorage} from "./core/token.storage";
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,12 @@ import {TokenStorage} from "./core/token.storage";
     AppRoutingModule
   ],
   entryComponents: [ErrorDialogComponent],
-  providers: [ErrorDialogComponent, UserService, AuthService, TokenStorage, TokenStorage,
+  providers: [
+    ErrorDialogComponent,
+    UserService,
+    AuthService, 
+    TokenStorage,
+    AuthGuard,
     {provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi : true}
