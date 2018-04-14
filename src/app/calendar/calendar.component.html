@@ -1,4 +1,4 @@
-
+<div  *ngIf=" radio == 1">
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
@@ -105,9 +105,9 @@
     (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-day-view>
 </div>
-
+</div>
 <br><br><br>
-
+<div *ngIf=" radio == 2">
 <h3>
   Edit events
   <button
@@ -163,3 +163,4 @@
   </tbody>
 
 </table>
+</div>

@@ -29,12 +29,12 @@
           <input ngbButton type="radio" [value]="1"> Calendar
         </label>
         <label ngbButtonLabel class="btn-primary">
-          <input ngbButton type="radio" value="2"> All
+          <input ngbButton type="radio" [value]="2"> All
         </label>
       </div>
     </form>
   </div>
-    <calendar-component></calendar-component>
+    <calendar-component [radio]="radioGroupForm.value['model']"></calendar-component>
   </div>
   <div class="col-6">
       <div class="form-group">

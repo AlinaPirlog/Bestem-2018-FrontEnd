@@ -1,5 +1,4 @@
 import {
-  Component,
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef
@@ -14,6 +13,7 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -44,7 +44,7 @@ const colors: any = {
 })
 export class CalendarComponent {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
+  @Input('radio') radio: string;
   view: string = 'month';
 
   viewDate: Date = new Date();
