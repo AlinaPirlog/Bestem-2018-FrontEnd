@@ -11,6 +11,13 @@ import { MouseEvent } from '@agm/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+    // google maps zoom level
+    zoom: number = 8;
+  
+    // initial center position for the map
+    lat: number = 51.673858;
+    lng: number = 7.815982;
+  
 
   constructor(private router: Router,
               private userService: UserService,
