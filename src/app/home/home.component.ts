@@ -1,33 +1,94 @@
-import {Component, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
-import {UserService} from '../app.service';
-import {Router} from '@angular/router';
-import {TokenStorage} from '../core/token.storage';
-import { MouseEvent } from '@agm/core';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
-
+import { ElementRef, ViewChild , Component, OnInit, NgZone } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+import { UserService } from '../app.service';
+import { Router } from '@angular/router';
+import { TokenStorage } from '../core/token.storage';
+import { MouseEvent, MapsAPILoader, AgmCoreModule } from '@agm/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MapService } from '../core/map.service';
+import { FormControl } from '@angular/forms';
+import { } from 'googlemaps';
 @Component({
   selector: 'app-root',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // google maps zoom level
-  zoom: number = 8;
 
-  // initial center position for the map
-  lat: number = 51.673858;
-  lng: number = 7.815982;
-  closeResult: string;
-  
+    public latitude: number;
+    public longitude: number;
+    public searchControl: FormControl;
+    public zoom: number ;
+    public closeResult: any;
+
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
 
   constructor(private router: Router,
               private userService: UserService,
-              private tokenStorage:TokenStorage,
-              private modalService: NgbModal) {
+              private tokenStorage: TokenStorage,
+              private mapService: MapService,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone,
+              private modalService : NgbModal ) {
   }
-  ngOnInit(): void {
 
+
+  ngOnInit(): void {
+    //set google maps defaults
+      this.zoom = 4;
+      this.latitude = 39.8282;
+      this.longitude = -98.5795;
+
+     //create search FormControl
+      this.searchControl = new FormControl();
+
+     //set current position
+      this.setCurrentPosition();
+
+     //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+      console.log(this.searchElementRef);
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+
+       });
+       autocomplete.addListener("place_changed", () => {
+         this.ngZone.run(() => {
+           //get the place result
+           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+           //verify result
+           if (place.geometry === undefined || place.geometry === null) {
+             return;
+           }
+
+           //set latitude, longitude and zoom
+           this.markersHolder.push({
+              lat : place.geometry.location.lat(),
+              lng : place.geometry.location.lng(),
+              draggable : true
+           })
+           this.latitude = place.geometry.location.lat();
+           this.longitude = place.geometry.location.lng();
+           this.zoom = 12;
+         });
+       });
+     });
+  }
+  private setCurrentPosition() {
+     if ("geolocation" in navigator) {
+       navigator.geolocation.getCurrentPosition((position) => {
+         this.latitude = position.coords.latitude;
+         this.longitude = position.coords.longitude;
+         this.zoom = 12;
+         this.markersHolder.push({
+             lat: position.coords.latitude,
+    		     lng: position.coords.longitude,
+    		     label: 'A',
+    		     draggable: true})
+       });
+     }
   }
 
   logOut():void {
@@ -40,44 +101,22 @@ export class HomeComponent implements OnInit {
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`)
   }
-  
+
   mapClicked($event: MouseEvent) {
-    this.markers.push({
+    this.markersHolder.push({
       lat: $event.coords.lat,
       lng: $event.coords.lng,
       draggable: true
     });
   }
-  
+
   removeMarker(index){
-    this.markers.splice(index, 1);
+    this.markersHolder.splice(index, 1);
   }
-  
+
   markerDragEnd(m: marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-  
-  markers: marker[] = [
-	  {
-		  lat: 51.673858,
-		  lng: 7.815982,
-		  label: 'A',
-		  draggable: true
-	  },
-	  {
-		  lat: 51.373858,
-		  lng: 7.215982,
-		  label: 'B',
-		  draggable: false
-	  },
-	  {
-		  lat: 51.723858,
-		  lng: 7.895982,
-		  label: 'C',
-		  draggable: true
-	  }
-  ]
-
 
   open(content) { 
     this.modalService.open(content).result.then((result) => {
@@ -96,10 +135,20 @@ export class HomeComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+
+  markers: marker[] = [];
+
+  markersHolder: markerHolder[] = [];
 }
 interface marker {
 	lat: number;
 	lng: number;
 	label?: string;
 	draggable: boolean;
+}
+interface markerHolder {
+  lat: number;
+  lng: number ;
+  label?: string;
+  draggable: boolean;
 }
