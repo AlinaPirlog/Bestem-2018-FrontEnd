@@ -7,7 +7,7 @@ import { TokenStorage } from '../core/token.storage';
 import { MouseEvent, MapsAPILoader, AgmCoreModule } from '@agm/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MapService } from '../core/map.service';
-import { FormControl } from '@angular/forms';
+import { FormControl,FormBuilder, FormGroup } from '@angular/forms';
 import { } from 'googlemaps';
 @Component({
   selector: 'app-root',
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     public searchControl: FormControl;
     public zoom: number ;
     public closeResult: any;
+    public radioGroupForm: FormGroup;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -31,13 +32,16 @@ export class HomeComponent implements OnInit {
               private mapService: MapService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
-              private modalService : NgbModal ) {
+              private modalService : NgbModal,
+              private formBuilder: FormBuilder ) {
   }
 
 
   ngOnInit(): void {
 
-
+    this.radioGroupForm = this.formBuilder.group({
+         'model': 1
+       });
      //create search FormControl
       this.searchControl = new FormControl();
 
@@ -79,7 +83,7 @@ export class HomeComponent implements OnInit {
          this.latitude = position.coords.latitude;
          this.longitude = position.coords.longitude;
          this.zoom = 12;
-    
+
        });
      }
   }

@@ -2,3 +2,7 @@
 agm-map {
   height: 45em;
 }
+buttons-select {
+  margin-left : 50%;
+  margin-right : 50%; 
+}

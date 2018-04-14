@@ -19,8 +19,21 @@
      </div>
    </div>
  </div>
+
 <div class="row">
   <div class="col-5" style="margin:20px">
+    <div style="margin-left:50%; margin-right:50%">
+    <form  [formGroup]="radioGroupForm">
+      <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="1"> Calendar
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" value="2"> All
+        </label>
+      </div>
+    </form>
+  </div>
     <calendar-component></calendar-component>
   </div>
   <div class="col-6">
