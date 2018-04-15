@@ -1,5 +1,6 @@
 <div  *ngIf=" radio == 1">
 
+<br>
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
     <h5 class="modal-title">Event action occurred</h5>
@@ -27,7 +28,7 @@
   <div class="col-md-4">
     <div class="btn-group">
       <div
-        class="btn btn-primary"
+        class="btn btn-outline-primary"
         mwlCalendarPreviousView
         [view]="view"
         [(viewDate)]="viewDate"
@@ -41,7 +42,7 @@
         Today
       </div>
       <div
-        class="btn btn-primary"
+        class="btn btn-outline-primary"
         mwlCalendarNextView
         [view]="view"
         [(viewDate)]="viewDate"
@@ -106,10 +107,10 @@
   </mwl-calendar-day-view>
 </div>
 </div>
-<br><br><br>
 <div *ngIf=" radio == 2">
+  <br>
 <h3>
-  Edit events
+  Edit your places
   <button
     class="btn btn-primary pull-right"
     (click)="addEvent()">
@@ -161,6 +162,6 @@
       </td>
     </tr>
   </tbody>
-
 </table>
+<button class="btn btn-secundary">Save</button>
 </div>
