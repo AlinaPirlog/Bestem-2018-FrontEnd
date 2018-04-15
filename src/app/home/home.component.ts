@@ -23,9 +23,13 @@ export class HomeComponent implements OnInit {
     public zoom: number ;
     public closeResult: any;
     public radioGroupForm: FormGroup;
-    public currentItinerary = "";
+    public currentItinerary = {
+      itineraryId: Number,
+      name: String
+    };
     public itineraries = [];
     public newItineraryName = "";
+    public newEventName = "";
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -134,9 +138,12 @@ export class HomeComponent implements OnInit {
 
   open(content) {
     this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+      if(result==='ok'){
+        this.authService.createNewEvent(this.currentItinerary.itineraryId, this.newEventName).subscribe(data =>{
+          console.log(data);
+        });
+      }
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 

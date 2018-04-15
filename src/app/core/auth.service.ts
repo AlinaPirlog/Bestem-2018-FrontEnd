@@ -5,7 +5,7 @@ import { TokenStorage } from "./token.storage";
 @Injectable()
 export class AuthService {
 
-  private baseUrl : string = 'http://192.168.21.134:8091';
+  private baseUrl : string = 'http://192.168.21.134:8080';
   headers: HttpHeaders;
 
   constructor(private http: HttpClient, private tokenStorage: TokenStorage) {
@@ -16,7 +16,6 @@ export class AuthService {
 
   attemptAuth(username: string, password: string): Observable<any> {
     const credentials = {username: username, password: password};
-    console.log('attempAuth ::');
     return this.http.post<any>(this.baseUrl + "/com/auth", credentials);
   }
 
@@ -26,6 +25,11 @@ export class AuthService {
 
   createNewItinerary(data):Observable<any> {
     return this.http.post<any>(this.baseUrl+"/api/itinerary/create",data,{headers:this.headers});
+  }
+
+  createNewEvent(itineraryId, eventName){
+    console.log(this.baseUrl+"api/itinerary_item/create/"+itineraryId);
+    return this.http.post<any>(this.baseUrl+"/api/itinerary_item/create/"+itineraryId,{name:eventName},{headers:this.headers});
   }
 
 }
