@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MapService } from '../core/map.service';
 import { FormControl,FormBuilder, FormGroup } from '@angular/forms';
 import { } from 'googlemaps';
+import { AuthService } from '../core/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './home.component.html',
@@ -22,6 +23,9 @@ export class HomeComponent implements OnInit {
     public zoom: number ;
     public closeResult: any;
     public radioGroupForm: FormGroup;
+    public currentItinerary = "";
+    public itineraries = [];
+    public newItineraryName = "";
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -33,11 +37,21 @@ export class HomeComponent implements OnInit {
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
               private modalService : NgbModal,
-              private formBuilder: FormBuilder ) {
+              private formBuilder: FormBuilder,
+              private authService: AuthService ) {
   }
 
 
   ngOnInit(): void {
+
+    //get all the itineraries for a user
+    this.authService.getItineraries().subscribe(data =>{
+      console.log(data);
+      this.itineraries = data;
+      if(data){
+        this.currentItinerary = data[0];
+      }
+    });
 
     this.radioGroupForm = this.formBuilder.group({
          'model': 1
@@ -85,6 +99,9 @@ export class HomeComponent implements OnInit {
          this.zoom = 12;
 
        });
+     } else {
+       this.latitude = 45;
+       this.longitude = 45;
      }
   }
 
@@ -120,6 +137,24 @@ export class HomeComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openNewItineraryModal(newItinerary) {
+    this.modalService.open(newItinerary).result.then((result) => {
+      console.log('result is' + result);
+      if(result == 'ok'){
+        console.log('intra aici');
+        this.authService.createNewItinerary({itineraryName:this.newItineraryName}).subscribe(data=>{
+          if(data.itineraryId){
+            this.itineraries.push(data);
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      }
+    }, (reason) => {
+      console.log('reason is' + reason);
     });
   }
 

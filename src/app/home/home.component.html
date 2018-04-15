@@ -11,17 +11,17 @@
 </mat-toolbar>
 <div class="col">
    <div ngbDropdown class="d-inline-block">
-     <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Itineraries</button>
+      Current trip: 
+     <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{currentItinerary.itineraryName}}</button>
      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-       <button class="dropdown-item">First</button>
-       <button class="dropdown-item">Second</button>
-       <button class="dropdown-item">Add New</button>
-     </div>
+       <button *ngFor="let itinerary of itineraries" (click)="currentItinerary=itinerary" class="dropdown-item">{{itinerary.itineraryName}}</button>
+      <button (click)="openNewItineraryModal(newItinerary)" class="dropwdown-item" class="dropdown-item">Add new</button>
+      </div>
    </div>
  </div>
 
 <div class="row">
-  <div class="col-5" style="margin:20px">
+  <div class="col-lg-5 col-md-12" style="margin:20px">
     <div style="margin-left:50%; margin-right:50%">
     <form  [formGroup]="radioGroupForm">
       <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
@@ -36,7 +36,7 @@
   </div>
     <calendar-component [radio]="radioGroupForm.value['model']"></calendar-component>
   </div>
-  <div class="col-6">
+  <div class="col-lg-6 col-md-12">
       <div class="form-group">
           <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
       </div>
@@ -70,10 +70,10 @@
   </div>
 </div>
 
-<ng-template #content>
+<ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">Modal title</h4>
-      <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click')">
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -81,6 +81,22 @@
       <p>One fine body&hellip;</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="close('Close click')">Close</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #newItinerary let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add a new Trip</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input placeholder="name" [(ngModel)]="newItineraryName"/>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="c('ok')" [ngClass]="newItineraryName?'btn btn-primary':'btn btn-primary disabled'">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
