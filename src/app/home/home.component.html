@@ -1,19 +1,22 @@
+<div id="divullllllll">
+
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span class="example-fill-remaining-space"></span>
     <span class="example-spacer"></span>
-
-    <button mat-button>About</button>
-    <button mat-button>Contact</button>
-    <button (click)="logOut()" mat-button>Log Out</button>
-
+    <div>
+      <button mat-button>ABOUT</button>
+      <button mat-button>CONTACT</button>
+      <button (click)="logOut()" mat-button>LOG OUT</button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="col">
-   <div ngbDropdown class="d-inline-block">
-      Current trip: 
+<div class="container jumbotron">
+<div class="col-md-12">
+   <div ngbDropdown class="row" style="margin-bottom: 20px;">
+      <h6 style="margin-top: 10px;">URRENT TRIP:</h6>
      <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>{{currentItinerary.itineraryName}}</button>
-     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+     <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="padding: 80px">
        <button *ngFor="let itinerary of itineraries" (click)="currentItinerary=itinerary" class="dropdown-item">{{itinerary.itineraryName}}</button>
       <button (click)="openNewItineraryModal(newItinerary)" class="dropwdown-item" class="dropdown-item">Add new</button>
       </div>
@@ -21,22 +24,21 @@
  </div>
 
 <div class="row">
-  <div class="col-lg-6 col-md-12" >
-    <div style="margin-left:50%; margin-right:50%">
-      <form  [formGroup]="radioGroupForm">
+  <div class="col-md-6 col-ms-12" >
+      <form  [formGroup]="radioGroupForm" style="size: 80%;">
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
           <label ngbButtonLabel class="btn-primary">
             <input ngbButton type="radio" [value]="1"> Calendar
           </label>
-          <label ngbButtonLabel class="btn-primary">
-            <input ngbButton type="radio" [value]="2"> All
+          <label ngbButtonLabel class="btn-primary" >
+            <input ngbButton type="radio" [value]="2"style="background-color: pink;"> All
           </label>
         </div>
       </form>
-    </div>
+  
     <calendar-component [radio]="radioGroupForm.value['model']"></calendar-component>
   </div>
-  <div class="col-lg-5 col-md-12">
+  <div class="col-md-6 col-ms-12">
       <div class="form-group">
           <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
       </div>
@@ -69,7 +71,7 @@
     </agm-map>
   </div>
 </div>
-
+</div>
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">Add new event</h4>
@@ -101,3 +103,5 @@
       <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
+
+</div>

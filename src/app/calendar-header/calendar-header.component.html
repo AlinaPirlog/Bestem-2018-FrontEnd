@@ -1,6 +1,7 @@
 <div class="row text-center">
-  <div class="col-md-4">
-    <div class="btn-group">
+  <div class="col">
+    <layout-sm>
+    <div class=" btn-group">
       <div
         class="btn btn-primary"
         mwlCalendarPreviousView
@@ -26,10 +27,14 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+</layout-sm>
+ <layout-sm>
+  <div class="col">
+    <p class="md-title">{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</p>
   </div>
-  <div class="col-md-4">
+</layout-sm>
+ <layout-sm>
+  <div class="col">
     <div class="btn-group">
       <div
         class="btn btn-primary"
@@ -51,5 +56,6 @@
       </div>
     </div>
   </div>
+</layout-sm>
 </div>
 <br>

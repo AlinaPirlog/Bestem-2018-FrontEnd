@@ -1,13 +1,17 @@
+<div id="divulllll">
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-
+    <button mat-button>TRAVEL THE WORLD</button>
     <span class="example-fill-remaining-space"></span>
     <span class="example-spacer"></span>
 
-    <button mat-button>About</button>
-    <button mat-button>Contact</button>
+    <button mat-button>ABOUT</button>
+    <button mat-button>CONTACT</button>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<div class="container">
+
 
 <mat-card class="example-card">
   <mat-card-header>
@@ -30,10 +34,24 @@
         </tr></table>
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="login()" color="primary">Login</button>
-  </mat-card-actions>
-  <mat-card-actions>
-    <button mat-raised-button (click)="register()" color="primary">REGISTER</button>
-  </mat-card-actions>
+  <div class="row">
+    <div class="col-md-6"><mat-card-actions>
+      <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
+    </mat-card-actions></div>
+    
+    <div class="col-md-6 float-right">
+      <mat-card-actions>
+      <button class="float-right" mat-raised-button (click)="register()" color="primary">REGISTER</button>
+      </mat-card-actions>
+    </div>
+    
+  </div>
+  
 </mat-card>
+
+</div>
+   <footer>
+      Copyright.
+    </footer>
+
+  </div>
